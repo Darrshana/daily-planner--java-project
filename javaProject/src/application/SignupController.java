@@ -1,4 +1,4 @@
-package application;
+ package application;
 
 import javafx.fxml.*;
 import javafx.scene.*;
@@ -12,6 +12,8 @@ import java.sql.*;
 import java.util.*;
 
 import javax.swing.JOptionPane;
+
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 
 
 public class SignupController implements Initializable{
@@ -27,6 +29,7 @@ public class SignupController implements Initializable{
 	    Connection conn = null;
 	    PreparedStatement ps = null;
 	    ResultSet resultSet = null;
+	    ResultSet rs2 = null;
 	    Statement statement = null;
 	    
 	    public SignupController() {
@@ -41,10 +44,16 @@ public class SignupController implements Initializable{
 				 System.out.println(username+"\t"+email+"\t"+password);
 	    		 statement = conn.createStatement();
 	    		 
-	    		 String query = "Select * from signup where username='"+username+"'and email='"+email+"'and password='"+password+"'";
+	    		 String query2 ="Select * from signup where email='"+email+"'";
+	    	     rs2 = statement.executeQuery(query2);
+	    	     boolean isThere=rs2.next();
+	    		 
+	    	     String query = "Select * from signup where username='"+username+"'and email='"+email+"'and password='"+password+"'";
 	    		 resultSet = statement.executeQuery(query);
-	    	
-	    		 if(!resultSet.next()){
+	    	     
+	    	     
+	    	     	    		 
+	    	     if(!resultSet.next() && !isThere){
 	    			String sql="insert into signup(username , email , password)values(?,?,?)";
 	    	    	
 					ps=conn.prepareStatement(sql);
@@ -66,17 +75,23 @@ public class SignupController implements Initializable{
 		    				stage.setScene(new Scene(root5));
 		    				stage.show();
 	    	 	}
-	    		else {
-					JOptionPane.showMessageDialog(null, "Already signed in...Redirecting to login page!");
-					FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("Login.fxml"));
-		    		Parent root = (Parent) fxmlloader.load();
-		    		Stage stage = new Stage();
-		    		stage.setTitle("Login");
-		    		stage.setScene(new Scene(root));
-		    		stage.show();
+	    	     
+	    	     
+	    	   
+	    	   else{
+	    		   FXMLLoader fxmlloader1 = new FXMLLoader(getClass().getResource("signuperror.fxml"));
+		    		Parent root1 = (Parent) fxmlloader1.load();
+		    		Stage stage1 = new Stage();
+		    		stage1.setTitle("Warning");
+		    		stage1.setScene(new Scene(root1));
+		    		stage1.show();
+	    			
+	    			
+	    			
 
-	    		}
+	    	   }
 	    	}
+	    	
 	    	catch(Exception e) {
 	    		e.printStackTrace();
 	    	}

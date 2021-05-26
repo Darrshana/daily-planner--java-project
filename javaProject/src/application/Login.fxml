@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="500.0" prefWidth="720.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
@@ -38,13 +39,16 @@
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 2em; -fx-font-family: Quicksand; -fx-fill: #262352; -fx-font-weight: bold;" text="Login">
                            <VBox.margin>
                               <Insets top="40.0" />
-                           </VBox.margin></Text>
+                           </VBox.margin>
+                           <font>
+                              <Font name="Book Antiqua Bold" size="17.0" />
+                           </font></Text>
                         <HBox alignment="CENTER_RIGHT" maxWidth="-Infinity" prefWidth="250.0" style="-fx-background-color: white; -fx-border-color: #a2a2a2; -fx-border-width: 0px 0px 2px 0px;">
                            <VBox.margin>
                               <Insets top="30.0" />
                            </VBox.margin>
                            <children>
-                              <TextField fx:id="lg_username" promptText="username" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
+                              <TextField fx:id="lg_email" promptText="email" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
                                  <HBox.margin>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </HBox.margin>
@@ -65,9 +69,9 @@
                               <Insets top="30.0" />
                            </VBox.margin>
                         </HBox>
-                        <Button mnemonicParsing="false" onMouseClicked="#LoginButtonpressed" prefWidth="180.0" style="-fx-background-color: #262352; -fx-background-radius: 100PX; -fx-font-weight: bold; -fx-text-fill: white;" text="Login">
+                        <Button mnemonicParsing="false" onMouseClicked="#LoginButtonpressed" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #262352; -fx-background-radius: 100PX; -fx-font-weight: bold; -fx-text-fill: white;" text="Login">
                            <VBox.margin>
-                              <Insets top="60.0" />
+                              <Insets top="50.0" />
                            </VBox.margin>
                         </Button>
                      </children>

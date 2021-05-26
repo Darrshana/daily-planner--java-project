@@ -42,8 +42,8 @@ import javafx.stage.Stage;
 
 public class SampleController implements Initializable {
 	public static String u;
-	public static void UserName(String usr) {
-		u=usr;
+	public static void Email(String mail) {
+		u=mail;
 	}
 
     @FXML
@@ -102,7 +102,7 @@ public class SampleController implements Initializable {
     void update(MouseEvent event) {
     	
     		conn=Mysqlconnect.connectdb();
-        	String sql2="UPDATE list1 SET name=?,date=?,time=?,status=? where name=?";
+        	String sql2="UPDATE list1 SET name=?,date=?,time=?,status=? where name =?";
         	try {
     			ps2=conn.prepareStatement(sql2);
     			ps2.setString(1,text_name.getText());
@@ -136,7 +136,7 @@ public class SampleController implements Initializable {
     void delete(MouseEvent event) throws IOException {
     	
     		conn=Mysqlconnect.connectdb();
-        	String sql1="DELETE FROM todolist.list1 WHERE name= ?";
+        	String sql1="DELETE FROM todolist.list1 WHERE name = ?";
         	try {
     			ps1=conn.prepareStatement(sql1);
     			ps1.setString(1,text_name.getText());
@@ -164,7 +164,7 @@ public class SampleController implements Initializable {
     }
     public void Add_tasks() throws IOException {
     	conn=Mysqlconnect.connectdb();
-    	String sql="insert into list1(name,date,time,status,username)values(?,?,?,?,?)";
+    	String sql="insert into list1(name,date,time,status,email)values(?,?,?,?,?)";
     	try {
 			ps=conn.prepareStatement(sql);
 			ps.setString(1,text_name.getText());
@@ -219,12 +219,12 @@ public class SampleController implements Initializable {
  
 }
  void Search() {  
-	 name.setCellValueFactory(new PropertyValueFactory<list1,String>("name"));
+	    name.setCellValueFactory(new PropertyValueFactory<list1,String>("name"));
 	    date.setCellValueFactory(new PropertyValueFactory<list1,Date>("date"));
 	    time.setCellValueFactory(new PropertyValueFactory<list1,Time>("time"));
 	    status.setCellValueFactory(new PropertyValueFactory<list1,String>("status"));
 	    
-	    list2=Mysqlconnect.getdatalist1(u);
+	    list2 = Mysqlconnect.getdatalist1(u);
 	    table_todolist.setItems(list2);
 	    FilteredList<list1> filteredData=new FilteredList<>(list2,b->true);
 	    calender.textProperty().addListener((observable,oldValue,newValue)->{

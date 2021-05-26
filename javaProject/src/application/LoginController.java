@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 public class LoginController  implements Initializable {
 	
     @FXML
-    private TextField lg_username;
+    private TextField lg_email;
 
     @FXML
     private PasswordField lg_password;
@@ -38,23 +38,30 @@ public class LoginController  implements Initializable {
 	@FXML
 	    void LoginButtonpressed(MouseEvent event) {
 		try {
-	    	 String username = lg_username.getText();
+	    	 String email = lg_email.getText();
 			 String password = lg_password.getText();
-			 System.out.println(username+"\t"+password);
+			 System.out.println(email+"\t"+password);
 			 statement = conn.createStatement();
    		 
-			 String query = "Select * from signup where username='"+username+"'and password='"+password+"'";
+			 String query = "Select * from signup where email='"+email+"'and password='"+password+"'";
 			 resultSet = statement.executeQuery(query);
    	
 			 if(!resultSet.next()){
-				 JOptionPane.showMessageDialog(null, "Error in login....Please try again!!");
+				 //JOptionPane.showMessageDialog(null, "Error in login....Please try again!!");
+				 FXMLLoader loader1 = new FXMLLoader(getClass().getResource("error.fxml"));
+		    		Parent root2 = loader1.load();
+		    				
+		    				Stage stage =new Stage();
+		    				stage.setTitle("Login error");
+		    				stage.setScene(new Scene(root2));
+		    				stage.show();
 			 }
 			 else {
-				 String str = username + ".....Logging in successful!!";
+				 
 				//JOptionPane.showMessageDialog(null, str);
 				SampleController s1=new SampleController();
-				SampleController.UserName(username);
-				lg_username.clear();
+				SampleController.Email(email);
+				lg_email.clear();
 				lg_password.clear();
 				 FXMLLoader loader4 = new FXMLLoader(getClass().getResource("Planner.fxml"));
 		    		Parent root4 = loader4.load();
